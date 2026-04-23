@@ -48,8 +48,12 @@ public class OptiFlowServer {
         System.out.println("[Engine] Loaded " + graph.getWarehouses().size() + " warehouses");
         System.out.println("[Engine] Loaded " + inventory.getProducts().size() + " products");
 
+        // Get port from environment variable for deployment (Railway)
+        String portEnv = System.getenv("PORT");
+        int port = (portEnv != null) ? Integer.parseInt(portEnv) : 5000;
+
         // Start HTTP server
-        HttpServer server = HttpServer.create(new InetSocketAddress(5000), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(port), 0);
 
         server.createContext("/api/health", ex -> handle(ex, OptiFlowServer::handleHealth));
         server.createContext("/api/graph", ex -> handle(ex, OptiFlowServer::handleGraph));
