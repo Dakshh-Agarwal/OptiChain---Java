@@ -4,18 +4,12 @@ dist/
 .env
 .env.local
 
-# Python
-__pycache__/
-*.pyc
-venv/
-.venv/
-env/
-
-# C++ Build
+# Java
+*.class
+*.jar
+out/
+target/
 engine/build/
-*.exe
-*.o
-*.obj
 
 # Editor
 .vscode/

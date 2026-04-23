@@ -1,29 +1,28 @@
 # OptiFlow 🚚 📦 
 ### Distributed Inventory Optimization & Delivery Engine
 
-[![C++](https://img.shields.io/badge/C++-Advanced_DSA-00599C?logo=c%2B%2B)](https://cplusplus.com/)
+[![Java](https://img.shields.io/badge/Java-Advanced_DSA-ED8B00?logo=openjdk)](https://openjdk.org/)
 [![React](https://img.shields.io/badge/React-Glassmorphism_UI-61DAFB?logo=react)](https://react.dev)
-[![Flask](https://img.shields.io/badge/Python-Flask_Bridge-000000?logo=flask)](https://flask.palletsprojects.com/)
 [![Algorithms](https://img.shields.io/badge/Data_Structures-Dijkstra_|_Fenwick_|_DP-8A2BE2)](#-core-algorithmic-modules)
 
-> **OptiFlow** is a highly-optimized, interview-defensible supply chain simulation engine. It intelligently routes deliveries, manages real-time warehouse inventory, processes split-orders dynamically, and predicts demand trends using advanced Data Structures and Algorithms (DSA) operating seamlessly through a high-performance C++ backend.
+> **OptiFlow** is a highly-optimized, interview-defensible supply chain simulation engine. It intelligently routes deliveries, manages real-time warehouse inventory, processes split-orders dynamically, and predicts demand trends using advanced Data Structures and Algorithms (DSA) operating seamlessly through a high-performance **Java** backend.
 
 ---
 
 ## 🔥 System Architecture 
 
-OptiFlow is separated into a tightly coupled trinity of performance layers designed to simulate enterprise-grade routing complexity at ultra-low latencies:
+OptiFlow is separated into two tightly coupled layers:
 
-1. **C++ DSA Core Processing (`/engine`)** — The algorithmic brain of the engine. Bypasses external databases to process massive `stdin`/`stdout` JSON graphs purely in-memory using heavily optimized complex heuristics.
-2. **Python Bridge API (`/backend`)** — A lightweight HTTP translation server wrapping the C++ subprocess in a RESTful Flask network. 
-3. **React Visualizer (`/frontend`)** — A strictly modern, responsive glassmorphism dark-theme interface dynamically bridging the logistics visualizations (leveraging HTML5 Canvas mapping algorithms) into a stunning client presentation.
+1. **Java DSA Engine + HTTP Server (`/engine`)** — The algorithmic brain. Implements all DSA modules (Dijkstra, Fenwick Tree, Min-Heap, Partition DP, Sliding Window) and serves a REST API using Java's built-in `HttpServer` — zero external dependencies.
+2. **React Visualizer (`/frontend`)** — A modern, responsive glassmorphism dark-theme interface dynamically bridging the logistics visualizations (leveraging HTML5 Canvas) into a stunning client presentation.
 
 <br/>
 
 ## 🧠 Core Algorithmic Modules
 
 ### 1. 🔀 Shortest Path & Logistics Routing (`O((V+E) log V)`)
-* **Algorithm:** Dijkstra’s Algorithm & Breadth-First Search (BFS)
+* **Algorithm:** Dijkstra's Algorithm & Breadth-First Search (BFS)
+* **Data Structure:** Adjacency List, PriorityQueue (Min-Heap)
 * **Design:** Calculates the absolute lowest-cost freight routes acting on Adjacency Lists populated by weighted geospatial edges traversing national warehouse networks. BFS sits as a fallback calculating optimal unit-hop pathways.
 
 ### 2. ⚡ Real-Time Inventory Control (`O(log N)`)
@@ -31,7 +30,7 @@ OptiFlow is separated into a tightly coupled trinity of performance layers desig
 * **Design:** Allows sub-millisecond precision over massive `point updates` representing dynamic inventory consumption, and `range sum query` operations extracting active logistical payloads across vast country-wide zones.
 
 ### 3. 🎯 Priority Order Allocation 
-* **Data Structure:** Min-Heap (Priority Queue) 
+* **Data Structure:** Min-Heap (PriorityQueue) 
 * **Design:** Aggregates delivery-candidate data simultaneously ranking warehouses against transit costs, transit times, and immediate stock depth to automatically assign standard orders to the most absolute optimal delivery origin.
 
 ### 4. 🧩 Partition DP: Split Order Engine (`O(U × W × K)`)
@@ -46,24 +45,20 @@ OptiFlow is separated into a tightly coupled trinity of performance layers desig
 
 ## 🚀 Installation & Setup
 
-Ensure your local environment possesses typical dependencies installed: **C++ Compiler (MinGW/GCC/MSVC)**, **Python 3.10+**, **Node.js 18+**, and **CMake**.
+Ensure your local environment has: **Java 11+** (JDK) and **Node.js 18+**.
 
-### 1. Compile the C++ Core
+### 1. Compile & Run the Java Engine
 ```bash
 cd engine
-# Assuming MinGW/GCC is installed:
-g++ -O2 -std=c++11 .\main.cpp .\graph.cpp .\fenwick.cpp .\allocator.cpp .\splitter.cpp .\demand.cpp -o .\build\engine.exe
-```
+# Compile all Java sources
+javac -d build src/main/java/com/optiflow/engine/*.java
 
-### 2. Launch the Python Bridge
-```bash
-cd backend
-python -m pip install -r requirements.txt
-python app.py
+# Run the server
+java -cp build com.optiflow.engine.OptiFlowServer
 ```
-*(Runs seamlessly on `http://localhost:5000`)*
+*(Runs on `http://localhost:5000`)*
 
-### 3. Launch the Visual Frontend
+### 2. Launch the Visual Frontend
 ```bash
 cd frontend
 npm install
